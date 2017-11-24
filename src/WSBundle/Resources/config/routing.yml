@@ -1,0 +1,4 @@
+
+getAllProject:
+    path:     /project/getAll
+    defaults: { _controller: WSBundle:Project:projectGetAll }
