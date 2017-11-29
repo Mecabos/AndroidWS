@@ -99,6 +99,7 @@ class Project
      */
     private $isCanceled;
 
+
     /**
      * Project constructor.
      * @param int $id
@@ -320,6 +321,7 @@ class Project
     {
         $this->servicesList = $servicesList;
     }
+
 
 
 

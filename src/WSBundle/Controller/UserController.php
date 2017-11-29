@@ -29,10 +29,9 @@ class UserController extends Controller
         $user = new User();
 
         if ($request->isMethod('POST')) {
-            $jsonuser=$data;
-            $email = $jsonuser['email'];
-            $firstname = $jsonuser['firstname'];
-            $lastname = $jsonuser['lastname'];
+            $email = $data['email'];
+            $firstname = $data['firstname'];
+            $lastname = $data['lastname'];
 
             $values['email'] = $email;
             $values['firstname'] = $firstname;
