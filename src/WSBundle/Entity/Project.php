@@ -100,10 +100,9 @@ class Project
     private $isCanceled = false;
     /**
      * @ORM\ManyToOne(targetEntity="SubCategory")
-     * @ORM\JoinColumn(name="souscategorie", referencedColumnName="id",onDelete="CASCADE",nullable=true)
+     * @ORM\JoinColumn(name="subCategory", referencedColumnName="id",nullable=true)
      */
-    private $souscategorie;
-
+    private $subCategory;
 
     /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\CollaborationGroup")
@@ -348,6 +347,22 @@ class Project
     public function setCollaborationGroup($collaborationGroup)
     {
         $this->collaborationGroup = $collaborationGroup;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubCategory()
+    {
+        return $this->subCategory;
+    }
+
+    /**
+     * @param mixed $subCategory
+     */
+    public function setSubCategory($subCategory)
+    {
+        $this->subCategory = $subCategory;
     }
 
 
