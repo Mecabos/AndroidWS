@@ -1,4 +1,14 @@
-project_getall:
+project_getAll:
     path:     /getAll
-    defaults: { _controller: "WSBundle:Project:projectGetAll" }
+    defaults: { _controller: "WSBundle:Project:getAll" }
+    methods:  [GET, POST]
+
+project_getById:
+    path:     /getById
+    defaults: { _controller: "WSBundle:Project:getById" }
+    methods:  [GET, POST]
+
+project_getByName:
+    path:     /getByName
+    defaults: { _controller: "WSBundle:Project:getByName" }
     methods:  [GET, POST]

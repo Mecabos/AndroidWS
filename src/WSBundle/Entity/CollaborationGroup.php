@@ -11,11 +11,11 @@ namespace WSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Group
- * @ORM\Entity(repositoryClass="WSBundle\Repository\GroupRepository")
- * @ORM\Table(name="group")
+ * CollaborationGroup
+ * @ORM\Entity(repositoryClass="WSBundle\Repository\CollaborationGroupRepository")
+ * @ORM\Table(name="CollaborationGroup")
  */
-class Group
+class CollaborationGroup
 {
     /**
      * @ORM\Id
@@ -23,11 +23,7 @@ class Group
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Project")
-     * @ORM\JoinColumn(name="project", referencedColumnName="id",nullable=true)
-     */
-    private $project;
+
     /**
      * @ORM\Column(type="string", length = 255,nullable=false)
      */
@@ -39,7 +35,7 @@ class Group
     private $creationDate;
 
     /**
-     * Group constructor.
+     * CollaborationGroup constructor.
      */
     public function __construct()
     {
@@ -59,22 +55,6 @@ class Group
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProject()
-    {
-        return $this->project;
-    }
-
-    /**
-     * @param mixed $project
-     */
-    public function setProject($project)
-    {
-        $this->project = $project;
     }
 
     /**
@@ -108,8 +88,5 @@ class Group
     {
         $this->creationDate = $creationDate;
     }
-
-
-
 
 }

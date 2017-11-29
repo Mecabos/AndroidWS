@@ -106,6 +106,13 @@ class Project
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\CollaborationGroup")
+     * @ORM\JoinColumn(name="collaborationGroup", referencedColumnName="id",nullable=true)
+     */
+    private $collaborationGroup;
+
+
+    /**
      * Project constructor.
      * @param int $id
      * @param string $name
@@ -326,6 +333,23 @@ class Project
     {
         $this->servicesList = $servicesList;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCollaborationGroup()
+    {
+        return $this->collaborationGroup;
+    }
+
+    /**
+     * @param mixed $collaborationGroup
+     */
+    public function setCollaborationGroup($collaborationGroup)
+    {
+        $this->collaborationGroup = $collaborationGroup;
+    }
+
 
 
 

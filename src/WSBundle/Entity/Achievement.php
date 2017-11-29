@@ -35,7 +35,7 @@ class Achievement
     private $description;
 
     /**
-     * Group constructor.
+     * CollaborationGroup constructor.
      */
     public function __construct()
     {

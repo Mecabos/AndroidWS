@@ -9,7 +9,7 @@
 namespace WSBundle\Repository;
 
 
-class GroupRepository extends \Doctrine\ORM\EntityRepository
+class CollaborationGroupRepository extends \Doctrine\ORM\EntityRepository
 {
 
 }
