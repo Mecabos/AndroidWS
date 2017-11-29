@@ -110,33 +110,13 @@ class Project
      */
     private $collaborationGroup;
 
-
     /**
-     * Project constructor.
-     * @param int $id
-     * @param string $name
-     * @param $creationDate
-     * @param $startDate
-     * @param $finishDate
-     * @param string $description
-     * @param float $budget
-     * @param float $currentBudget
-     * @param string $equipmentsList
-     * @param string $servicesList
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="creator", referencedColumnName="id",nullable=false)
      */
-    public function __construct($id, $name, $creationDate, $startDate, $finishDate, $description, $budget, $currentBudget, $equipmentsList, $servicesList)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->creationDate = $creationDate;
-        $this->startDate = $startDate;
-        $this->finishDate = $finishDate;
-        $this->description = $description;
-        $this->budget = $budget;
-        $this->currentBudget = $currentBudget;
-        $this->equipmentsList = $equipmentsList;
-        $this->servicesList = $servicesList;
-    }
+    private $founder;
+
+
 
     /**
      * @return mixed
@@ -364,6 +344,25 @@ class Project
     {
         $this->subCategory = $subCategory;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFounder()
+    {
+        return $this->founder;
+    }
+
+    /**
+     * @param mixed $founder
+     */
+    public function setFounder($founder)
+    {
+        $this->founder = $founder;
+    }
+
+
+
 
 
 
