@@ -26,7 +26,7 @@ class Achievement
     private $id;
     /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Project")
-     * @ORM\JoinColumn(name="name", referencedColumnName="id",nullable=false)
+     * @ORM\Column(name="name", type="string",length = 255,nullable=false)
      */
     private $name;
     /**
