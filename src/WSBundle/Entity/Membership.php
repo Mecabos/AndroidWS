@@ -23,17 +23,17 @@ class Membership
      */
     private $id;
     /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Group")
+     * @ORM\ManyToOne(targetEntity="Group")
      * @ORM\JoinColumn(name="group", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
     private $group;
     /**
-     * @ORM\Column(type="integer",options={"default":0},nullable=false)
+     * @ORM\Column(name="isAdmin",type="boolean",nullable=false)
      */
     private $isAdmin;
     /**

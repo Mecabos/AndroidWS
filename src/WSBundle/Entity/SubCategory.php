@@ -3,19 +3,19 @@
  * Created by PhpStorm.
  * User: Bacem
  * Date: 11/29/2017
- * Time: 8:49 PM
+ * Time: 9:06 PM
  */
 
 namespace WSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- * Category
+ * SubCategory
  *
- * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="WSBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="subcategory")
+ * @ORM\Entity(repositoryClass="WSBundle\Repository\SubCategoryRepository")
  */
-class Category
+class SubCategory
 {
     /**
      * @var int
@@ -29,19 +29,20 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="label", type="string", length=20,nullable=false)
+     * @ORM\Column(name="label", type="string", length=20)
      */
     private $label;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="color", type="string", length=100,nullable=false)
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id",onDelete="CASCADE")
      */
-    private $color = "#00c2ff";
+    private $category;
 
     /**
-     * Category constructor.
+     * SubCategory constructor.
      */
     public function __construct()
     {
@@ -80,23 +81,18 @@ class Category
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getColor()
+    public function getCategory()
     {
-        return $this->color;
+        return $this->category;
     }
 
     /**
-     * @param string $color
+     * @param int $category
      */
-    public function setColor($color)
+    public function setCategory($category)
     {
-        $this->color = $color;
+        $this->category = $category;
     }
-
-
-
-
-
 }

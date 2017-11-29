@@ -21,7 +21,6 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $data=json_decode($request->getContent(),true);
-        $values = array();
         $errors = array();
 
         $em=$this->getDoctrine()->getManager();
@@ -29,14 +28,9 @@ class UserController extends Controller
         $user = new User();
 
         if ($request->isMethod('POST')) {
-            $jsonuser=$data;
-            $email = $jsonuser['email'];
-            $firstname = $jsonuser['firstname'];
-            $lastname = $jsonuser['lastname'];
-
-            $values['email'] = $email;
-            $values['firstname'] = $firstname;
-            $values['lastname'] = $lastname;
+            $email = $data['email'];
+            $firstname = $data['firstname'];
+            $lastname = $data['lastname'];
 
             $user->setEmail($email);
             $user->setFirstName($firstname);

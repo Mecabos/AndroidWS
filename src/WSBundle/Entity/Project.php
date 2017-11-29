@@ -95,9 +95,15 @@ class Project
      */
     private $servicesList;
     /**
-     * @ORM\Column(type="integer",options={"default":0},nullable=false)
+     * @ORM\Column(name="isCanceled",type="boolean",nullable=false)
      */
-    private $isCanceled;
+    private $isCanceled = false;
+    /**
+     * @ORM\ManyToOne(targetEntity="SubCategory")
+     * @ORM\JoinColumn(name="souscategorie", referencedColumnName="id",onDelete="CASCADE",nullable=true)
+     */
+    private $souscategorie;
+
 
     /**
      * Project constructor.
