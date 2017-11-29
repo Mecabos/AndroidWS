@@ -2,7 +2,23 @@ ws_user:
     resource: "@WSBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
+ws_project:
+    resource: "@WSBundle/Resources/config/routing/project.yml"
+    prefix:   /project
 
-getAllProject:
-    path:     /project/getAll
-    defaults: { _controller: WSBundle:Project:projectGetAll }
+ws_comment:
+    resource: "@WSBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+
+ws_follow:
+    resource: "@WSBundle/Resources/config/routing/follow.yml"
+    prefix:   /follow
+
+ws_group:
+    resource: "@WSBundle/Resources/config/routing/group.yml"
+    prefix:   /group
+
+ws_membership:
+    resource: "@WSBundle/Resources/config/routing/membership.yml"
+    prefix:   /membership
+

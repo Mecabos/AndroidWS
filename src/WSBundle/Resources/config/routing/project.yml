@@ -1,0 +1,4 @@
+user_new:
+    path:     /getAll
+    defaults: { _controller: "WSBundle:Project:projectGetAll" }
+    methods:  [GET, POST]

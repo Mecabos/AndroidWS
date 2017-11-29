@@ -3,18 +3,18 @@
  * Created by PhpStorm.
  * User: Bacem
  * Date: 11/29/2017
- * Time: 6:43 PM
+ * Time: 7:30 PM
  */
 
 namespace WSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- * @ORM\Entity(repositoryClass="WSBundle\Repository\MembershipRepository")
- * @ORM\Table(name="membership")
+ * @ORM\Entity(repositoryClass="WSBundle\Repository\FollowRepository")
+ * @ORM\Table(name="follow")
  *
  */
-class Membership
+class Follow
 {
     /**
      * @ORM\Id
@@ -28,43 +28,15 @@ class Membership
      */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Group")
+     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Project")
      * @ORM\JoinColumn(name="group", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
-    private $group;
-    /**
-     * @ORM\Column(type="integer",options={"default":0},nullable=false)
-     */
-    private $isAdmin;
+    private $project;
     /**
      *
-     * @ORM\Column(name="adherationDate", type="datetime")
+     * @ORM\Column(name="followDate", type="datetime")
      */
-    private $adherationDate;
-
-    /**
-     * Membership constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdherationDate()
-    {
-        return $this->adherationDate;
-    }
-
-    /**
-     * @param mixed $adherationDate
-     */
-    public function setAdherationDate($adherationDate)
-    {
-        $this->adherationDate = $adherationDate;
-    }
-
+    private $followDate;
 
     /**
      * @return mixed
@@ -101,34 +73,35 @@ class Membership
     /**
      * @return mixed
      */
-    public function getGroup()
+    public function getProject()
     {
-        return $this->group;
+        return $this->project;
     }
 
     /**
-     * @param mixed $group
+     * @param mixed $project
      */
-    public function setGroup($group)
+    public function setProject($project)
     {
-        $this->group = $group;
+        $this->project = $project;
     }
 
     /**
      * @return mixed
      */
-    public function getisAdmin()
+    public function getFollowDate()
     {
-        return $this->isAdmin;
+        return $this->followDate;
     }
 
     /**
-     * @param mixed $isAdmin
+     * @param mixed $followDate
      */
-    public function setIsAdmin($isAdmin)
+    public function setFllowDate($followDate)
     {
-        $this->isAdmin = $isAdmin;
+        $this->fllowDate = $followDate;
     }
+
 
 
 }
