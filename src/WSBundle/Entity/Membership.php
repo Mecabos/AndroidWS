@@ -28,10 +28,10 @@ class Membership
      */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Group")
-     * @ORM\JoinColumn(name="group", referencedColumnName="id",nullable=true,onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="CollaborationGroup")
+     * @ORM\JoinColumn(name="CollaborationGroup", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
-    private $group;
+    private $CollaborationGroup;
     /**
      * @ORM\Column(type="integer",options={"default":0},nullable=false)
      */
@@ -101,17 +101,17 @@ class Membership
     /**
      * @return mixed
      */
-    public function getGroup()
+    public function getCollaborationGroup()
     {
-        return $this->group;
+        return $this->CollaborationGroup;
     }
 
     /**
-     * @param mixed $group
+     * @param mixed $CollaborationGroup
      */
-    public function setGroup($group)
+    public function setCollaborationGroup($CollaborationGroup)
     {
-        $this->group = $group;
+        $this->CollaborationGroup = $CollaborationGroup;
     }
 
     /**

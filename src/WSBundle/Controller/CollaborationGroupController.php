@@ -8,16 +8,14 @@
 
 namespace WSBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use WSBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
-/**
- * User controller.
- *
- */
-class UserController extends Controller
+use DateTime;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use WSBundle\Entity\CollaborationGroup;
+
+class CollaborationGroupController extends Controller
 {
 
     public function newAction(Request $request)
@@ -27,20 +25,18 @@ class UserController extends Controller
 
         $em=$this->getDoctrine()->getManager();
 
-        $user = new User();
+        $group = new CollaborationGroup();
 
         if ($request->isMethod('POST')) {
-            $email = $data['email'];
-            $firstname = $data['firstname'];
-            $lastname = $data['lastname'];
-
-            $user->setEmail($email);
-            $user->setFirstName($firstname);
-            $user->setLastName($lastname);
+            $name = $data['name'];
+            //$creationDate = $data['creationDate'];
+            $group->setName($name);
+            //$group->setCreationDate($creationDate);
+            $group->setCreationDate(new DateTime());
 
             if (count($errors) == 0) {
 
-                $em->persist($user);
+                $em->persist($group);
                 $em->flush();
             }
             return new JsonResponse(array("type"=>"success",'errors' => $errors));

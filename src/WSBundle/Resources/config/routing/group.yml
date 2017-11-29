@@ -1,0 +1,4 @@
+group_new:
+    path:     /new
+    defaults: { _controller: "WSBundle:CollaborationGroup:new" }
+    methods:  [GET, POST]
