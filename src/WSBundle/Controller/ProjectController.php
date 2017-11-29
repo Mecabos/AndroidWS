@@ -41,4 +41,5 @@ class ProjectController extends Controller
         return new JsonResponse($projectsListJson);
     }
 
+
 }
