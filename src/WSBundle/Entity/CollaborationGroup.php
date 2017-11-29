@@ -35,6 +35,12 @@ class CollaborationGroup
     private $creationDate;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="creator", referencedColumnName="id",nullable=false)
+     */
+    private $creator;
+
+    /**
      * CollaborationGroup constructor.
      */
     public function __construct()
@@ -88,5 +94,22 @@ class CollaborationGroup
     {
         $this->creationDate = $creationDate;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param mixed $creator
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
+    }
+
 
 }

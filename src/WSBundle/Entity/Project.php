@@ -111,11 +111,11 @@ class Project
     private $collaborationGroup;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="creator", referencedColumnName="id",nullable=false)
+     * Project constructor.
      */
-    private $founder;
-
+    public function __construct()
+    {
+    }
 
 
     /**
@@ -345,21 +345,10 @@ class Project
         $this->subCategory = $subCategory;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFounder()
-    {
-        return $this->founder;
-    }
 
-    /**
-     * @param mixed $founder
-     */
-    public function setFounder($founder)
-    {
-        $this->founder = $founder;
-    }
+
+
+
 
 
 
