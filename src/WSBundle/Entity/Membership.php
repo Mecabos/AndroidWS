@@ -28,7 +28,7 @@ class Membership
      */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Group")
      * @ORM\JoinColumn(name="group", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
     private $group;
