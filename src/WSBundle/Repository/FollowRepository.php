@@ -9,7 +9,7 @@
 namespace WSBundle\Repository;
 
 
-class FollowRepositoryRepository extends \Doctrine\ORM\EntityRepository
+class FollowRepository extends \Doctrine\ORM\EntityRepository
 {
 
 }

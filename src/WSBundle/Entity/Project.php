@@ -94,7 +94,10 @@ class Project
      * @ORM\Column(name="servicesList", type="string", length=400)
      */
     private $servicesList;
-
+    /**
+     * @ORM\Column(type="integer",options={"default":0},nullable=false)
+     */
+    private $isCanceled;
 
     /**
      * Project constructor.
@@ -122,6 +125,23 @@ class Project
         $this->equipmentsList = $equipmentsList;
         $this->servicesList = $servicesList;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getisCanceled()
+    {
+        return $this->isCanceled;
+    }
+
+    /**
+     * @param mixed $isCanceled
+     */
+    public function setIsCanceled($isCanceled)
+    {
+        $this->isCanceled = $isCanceled;
+    }
+
 
     /**
      * @return int

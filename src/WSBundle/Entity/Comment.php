@@ -11,7 +11,7 @@ namespace WSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="WSBundle\Repository\CommentRepository")
- * @ORM\Table(name="follow")
+ * @ORM\Table(name="comment")
  *
  */
 
