@@ -16,18 +16,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Membership
 {
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
     private $user;
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="CollaborationGroup")
      * @ORM\JoinColumn(name="CollaborationGroup", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */

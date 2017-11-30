@@ -2,3 +2,13 @@ user_new:
     path:     /new
     defaults: { _controller: "WSBundle:User:new" }
     methods:  [GET, POST]
+
+user_update:
+    path:     /update
+    defaults: { _controller: "WSBundle:User:update" }
+    methods:  [GET, POST]
+
+user_delete:
+    path:     /delete
+    defaults: { _controller: "WSBundle:User:delete" }
+    methods:  [GET, POST]

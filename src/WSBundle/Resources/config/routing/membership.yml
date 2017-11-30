@@ -1,0 +1,9 @@
+membership_addMember:
+    path:     /addMember
+    defaults: { _controller: "WSBundle:Membership:addMember" }
+    methods:  [GET, POST]
+
+membership_deleteMember:
+    path:     /deleteMember
+    defaults: { _controller: "WSBundle:Membership:deleteMember" }
+    methods:  [GET, POST]

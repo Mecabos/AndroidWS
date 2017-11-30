@@ -1,0 +1,9 @@
+collaborationGroup_new:
+    path:     /new
+    defaults: { _controller: "WSBundle:CollaborationGroup:new" }
+    methods:  [GET, POST]
+
+collaborationGroup_updateName:
+    path:     /updateName
+    defaults: { _controller: "WSBundle:CollaborationGroup:updateName" }
+    methods:  [GET, POST]

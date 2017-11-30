@@ -11,9 +11,7 @@ namespace WSBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
-use WSBundle\Entity\Project;
+
 
 class ProjectController extends Controller
 {
@@ -31,7 +29,7 @@ class ProjectController extends Controller
                     "name" => $project->getName(),
                     "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
                     "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for timme zone
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
@@ -64,7 +62,7 @@ class ProjectController extends Controller
                     "name" => $project->getName(),
                     "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
                     "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for timme zone
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
@@ -97,7 +95,7 @@ class ProjectController extends Controller
                     "name" => $project->getName(),
                     "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
                     "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for timme zone
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
