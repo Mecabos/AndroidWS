@@ -60,8 +60,15 @@ class MembershipController extends Controller
 
     }
 
-    public function deleteMemberAction(Request $request)
+    public function deleteMemberAction(Request $request) //success
     {
+
+        //json Test
+/*        {
+            "id_user" : "3",
+	"id_group" : "4"
+}
+*/
 
         $data=json_decode($request->getContent(),true);
         $errors = array();
@@ -69,8 +76,9 @@ class MembershipController extends Controller
         $em=$this->getDoctrine()->getManager();
 
         if ($request->isMethod('POST')) {
-            $id = $data['id'];
-            $membership = $em->getRepository('WSBundle:User')->find($id);
+            $id_user = $data['id_user'];
+            $id_group = $data['id_group'];
+            $membership = $em->getRepository('WSBundle:Membership')->findOneBy(array('user' => $id_user,'CollaborationGroup' => $id_group));
 
             if (count($errors) == 0) {
 
