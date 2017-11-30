@@ -39,7 +39,7 @@ class Project
      *
      * @ORM\Column(name="creationDate", type="datetime")
      */
-    private $creationDate;
+    private $creationDate ;
 
     /**
      *
@@ -79,7 +79,7 @@ class Project
      *
      * @ORM\Column(name="currentBudget", type="float")
      */
-    private $currentBudget;
+    private $currentBudget = 0 ;
 
     /**
      * @var string

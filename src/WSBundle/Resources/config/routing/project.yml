@@ -12,3 +12,8 @@ project_getByName:
     path:     /getByName
     defaults: { _controller: "WSBundle:Project:getByName" }
     methods:  [GET, POST]
+
+project_create:
+    path:     /create
+    defaults: { _controller: "WSBundle:Project:create" }
+    methods:  [GET, POST]
