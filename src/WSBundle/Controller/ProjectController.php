@@ -17,7 +17,7 @@ use WSBundle\Entity\Project;
 
 class ProjectController extends Controller
 {
-    public function getAllAction(Request $request) //success
+    public function getAllAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -47,7 +47,7 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function getByIdAction(Request $request) //success
+    public function getByIdAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
@@ -80,7 +80,7 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function getByNameAction(Request $request) //success
+    public function getByNameAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
@@ -113,7 +113,17 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function createAction(Request $request) //success
+/*{
+"name": "Project #1",
+"startDate": "2017/05/01 12:00:00",
+"finishDate": "2017/06/01 12:30:00",
+"description": "A lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng Description",
+"shortDescription": "A short Description",
+"budget": 1500,
+"equipementsList": "Equipement#1\nEquipement#2\nEquipement#3\nEquipement#4\nEquipement#5",
+"servicesList": "Service#1\nService#2\nService#3"
+}*/
+    public function createAction(Request $request)
     {
         $errors = array();
         $data = json_decode($request->getContent(), true);
@@ -124,15 +134,20 @@ class ProjectController extends Controller
 
         if ($request->isMethod('POST')) {
             $name = $data['name'];
-            $creationDate = new DateTime();
+            $creationDate = new \DateTime();
 
-            $startDate = DateTime::createFromFormat("Y/m/d H:m:s", $data['startDate']);
-            $finishDate = DateTime::createFromFormat("Y/m/d H:m:s", $data['finishDate']);
+            $startDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['startDate']);
+            $finishDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['finishDate']);
             $description = $data['description'];
             $shortDescription = $data['shortDescription'];
             $budget = $data['budget'];
             $equipementsList = $data['equipementsList'];
             $servicesList = $data['servicesList'];
+            $id_subCategory = $data['id_subCategory'];
+            $subCategory = $em->getRepository('WSBundle:User')->find($id_subCategory);
+            $id_collaborationGroup = $data['id_group'];
+            $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($id_collaborationGroup);
+
 
             $project->setName($name);
             $project->setCreationDate($creationDate);
@@ -143,6 +158,8 @@ class ProjectController extends Controller
             $project->setBudget($budget);
             $project->setEquipmentsList($equipementsList);
             $project->setServicesList($servicesList);
+            $project->setSubCategory($subCategory);
+            $project->setCollaborationGroup($collaborationGroup);
 
 
 
@@ -155,7 +172,7 @@ class ProjectController extends Controller
 
 
         }
-        return new JsonResponse(array("type"=>"failed"));
+        return new JsonResponse(array("type"=>"failed",'errors' => $errors));
     }
 
 

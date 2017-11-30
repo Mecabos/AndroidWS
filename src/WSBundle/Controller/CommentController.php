@@ -1,0 +1,105 @@
+<?php
+
+namespace WSBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use WSBundle\Entity\Comment;
+
+class CommentController extends Controller
+{
+/*{
+"text": "This project is so good! i'm hyped",
+"commentDate": "2017/05/01 12:00:00",
+"id_user": 1,
+"id_project": 1
+}*/
+    public function createAction(Request $request)
+    {
+        $errors = array();
+        $data = json_decode($request->getContent(), true);
+
+        $em=$this->getDoctrine()->getManager();
+
+        $comment = new Comment();
+
+        if ($request->isMethod('POST')) {
+            $text = $data['text'];
+            $commentDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['commentDate']);
+            $id_user = $data['id_user'];
+            $user = $em->getRepository('WSBundle:User')->find($id_user);
+            $id_project = $data['id_project'];
+            $project = $em->getRepository('WSBundle:Project')->find($id_project);
+
+            $comment->setCommentDate($commentDate);
+            $comment->setText($text) ;
+            $comment->setProject($project) ;
+            $comment->setUser($user) ;
+
+            if (count($errors) == 0) {
+
+                $em->persist($comment);
+                $em->flush();
+            }
+            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+
+
+        }
+        return new JsonResponse(array("type"=>"failed",'errors' => $errors));
+    }
+
+    public function getByProjectAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+
+            $project_id = $data['project_id'];
+
+            $commentsList = $em->getRepository('WSBundle:Comment')->findBy(array('project' => $project_id));
+            $commentsListJson = array();
+            foreach ($commentsList as $comment) {
+                $user = $em->getRepository('WSBundle:User')->find($comment->getUser());
+                $commentsListJson[] = array(
+                    "id" => $comment->getId(),
+                    "text" => $comment->getText(),
+                    "commentDate" => $comment->getCommentDate()->format("Y/m/d H:m:s"),
+                    "user" => array(
+                        "id" => $user->getId(),
+                        "firstName" => $user->getFirstName(),
+                        "lastName" => $user->getLastName(),
+                    )
+                );
+            }
+            return new JsonResponse($commentsListJson);
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+    public function getByUserAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+
+            $user_id = $data['user_id'];
+
+            $commentsList = $em->getRepository('WSBundle:Comment')->findBy(array('user' => $user_id));
+            $commentsListJson = array();
+            foreach ($commentsList as $comment) {
+                $project = $em->getRepository('WSBundle:Project')->find($comment->getProject());
+                $commentsListJson[] = array(
+                    "id" => $comment->getId(),
+                    "text" => $comment->getText(),
+                    "commentDate" => $comment->getCommentDate()->format("Y/m/d H:m:s"),
+                    "project" => $project->getId()
+                );
+            }
+            return new JsonResponse($commentsListJson);
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
+}

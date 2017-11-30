@@ -1,0 +1,14 @@
+comment_create:
+    path:     /create
+    defaults: { _controller: "WSBundle:Comment:create" }
+    methods:  [POST]
+
+comment_getByProject:
+    path:     /getByProject
+    defaults: { _controller: "WSBundle:Comment:getByProject" }
+    methods:  [POST]
+
+comment_getByUser:
+    path:     /getByUser
+    defaults: { _controller: "WSBundle:Comment:getByUser" }
+    methods:  [POST]
