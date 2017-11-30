@@ -143,6 +143,7 @@ class ProjectController extends Controller
             $project->setServicesList($servicesList);
 
 
+
             if (count($errors) == 0) {
 
                 $em->persist($project);
