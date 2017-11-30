@@ -26,3 +26,7 @@ ws_achieved:
     resource: "@WSBundle/Resources/config/routing/achieved.yml"
     prefix:   /achieved
 
+ws_rate:
+    resource: "@WSBundle/Resources/config/routing/rate.yml"
+    prefix:   /rate
+

@@ -1,0 +1,9 @@
+rate_create:
+    path:     /create
+    defaults: { _controller: "WSBundle:Rate:create" }
+    methods:  [POST]
+
+rate_update:
+    path:     /update
+    defaults: { _controller: "WSBundle:Rate:update" }
+    methods:  [POST]
