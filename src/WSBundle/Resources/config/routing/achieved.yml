@@ -1,0 +1,9 @@
+achieved_getByUser:
+    path:     /getByUser
+    defaults: { _controller: "WSBundle:Achieved:getByUser" }
+    methods:  [GET, POST]
+
+achieved_addAchieved:
+    path:     /addAchieved
+    defaults: { _controller: "WSBundle:Achieved:addAchieved" }
+    methods:  [GET, POST]

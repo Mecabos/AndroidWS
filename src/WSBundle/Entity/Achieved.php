@@ -18,16 +18,12 @@ class Achieved
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
     private $user;
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Achievement")
      * @ORM\JoinColumn(name="achievement", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
@@ -38,19 +34,10 @@ class Achieved
     private $achievementDate;
 
     /**
-     * @return mixed
+     * Achieved constructor.
      */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**

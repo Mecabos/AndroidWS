@@ -8,14 +8,16 @@
 
 namespace WSBundle\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use WSBundle\Entity\Project;
 
 
 class ProjectController extends Controller
 {
-    public function getAllAction(Request $request)
+    public function getAllAction(Request $request) //success
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -45,7 +47,7 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function getByIdAction(Request $request)
+    public function getByIdAction(Request $request) //success
     {
         $data = json_decode($request->getContent(), true);
 
@@ -78,7 +80,7 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function getByNameAction(Request $request)
+    public function getByNameAction(Request $request) //success
     {
         $data = json_decode($request->getContent(), true);
 
@@ -111,7 +113,7 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    public function createAction(Request $request)
+    public function createAction(Request $request) //success
     {
         $errors = array();
         $data = json_decode($request->getContent(), true);

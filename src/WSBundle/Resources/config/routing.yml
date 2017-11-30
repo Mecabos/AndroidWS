@@ -22,3 +22,7 @@ ws_membership:
     resource: "@WSBundle/Resources/config/routing/membership.yml"
     prefix:   /membership
 
+ws_achieved:
+    resource: "@WSBundle/Resources/config/routing/achieved.yml"
+    prefix:   /achieved
+
