@@ -111,5 +111,51 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
+    public function createAction(Request $request)
+    {
+        $errors = array();
+        $data = json_decode($request->getContent(), true);
+
+        $em=$this->getDoctrine()->getManager();
+
+        $project = new Project();
+
+        if ($request->isMethod('POST')) {
+            $name = $data['name'];
+            $creationDate = new DateTime();
+
+            $startDate = DateTime::createFromFormat("Y/m/d H:m:s", $data['startDate']);
+            $finishDate = DateTime::createFromFormat("Y/m/d H:m:s", $data['finishDate']);
+            $description = $data['description'];
+            $shortDescription = $data['shortDescription'];
+            $budget = $data['budget'];
+            $equipementsList = $data['equipementsList'];
+            $servicesList = $data['servicesList'];
+
+            $project->setName($name);
+            $project->setCreationDate($creationDate);
+            $project->setStartDate($startDate);
+            $project->setFinishDate($finishDate);
+            $project->setDescription($description);
+            $project->setShortDescription($shortDescription);
+            $project->setBudget($budget);
+            $project->setEquipmentsList($equipementsList);
+            $project->setServicesList($servicesList);
+
+
+            if (count($errors) == 0) {
+
+                $em->persist($project);
+                $em->flush();
+            }
+            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+
+
+        }
+        return new JsonResponse(array("type"=>"failed"));
+    }
+
+
+
 
 }
