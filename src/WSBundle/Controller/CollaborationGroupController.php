@@ -23,6 +23,7 @@ class CollaborationGroupController extends Controller
 
         //Json test
  /*       {
+ date
             "name": "group 1",
     "creator": "1"
 }*/
@@ -35,12 +36,11 @@ class CollaborationGroupController extends Controller
 
         if ($request->isMethod('POST')) {
             $name = $data['name'];
-            //$creationDate = $data['creationDate'];
+            $creationDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['creationDate']);
             $creator = $data['creator'];
 
             $collaborationGroup->setName($name);
-            //$group->setCreationDate($creationDate);
-            $collaborationGroup->setCreationDate(new DateTime()); //TODO
+            $collaborationGroup->setCreationDate($creationDate);
             $user = $em->getRepository('WSBundle:User')->find($creator);
             $collaborationGroup->setCreator($user);
 
@@ -75,7 +75,8 @@ class CollaborationGroupController extends Controller
             $id = $data['id'];
             $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($id);
             $name = $data['name'];
-            //$creationDate = $data['creationDate']; //TODO
+            $creationDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['creationDate']);
+            $collaborationGroup->setCreationDate($creationDate);
             $collaborationGroup->setName($name);
 
             if (count($errors) == 0) {

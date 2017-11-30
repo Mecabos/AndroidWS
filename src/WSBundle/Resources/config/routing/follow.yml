@@ -1,0 +1,4 @@
+follow_new:
+    path:     /new
+    defaults: { _controller: "WSBundle:Follow:addFollow" }
+    methods:  [GET, POST]

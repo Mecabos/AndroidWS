@@ -45,14 +45,14 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $email = $data['email'];
             $firstname = $data['firstname'];
-            $lastname = $data['lastname'];//TODO
-            //$birthdate = $data['birthdate'];
+            $lastname = $data['lastname'];
+            $birthdate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['birthdate']);
             $bio = $data['bio'];
 
             $user->setEmail($email);
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
-            $user->setBirthDate(new DateTime());
+            $user->setBirthDate($birthdate);
             $user->setBio($bio);
 
             if (count($errors) == 0) {
@@ -93,13 +93,13 @@ class UserController extends Controller
             $email = $data['email'];
             $firstname = $data['firstname'];
             $lastname = $data['lastname'];
-            //$birthdate = $data['birthdate']; //TODO
+            $birthdate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['birthdate']);
             $bio = $data['bio'];
 
             $user->setEmail($email);
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
-            //$user->setBirthDate($birthdate);
+            $user->setBirthDate($birthdate);
             $user->setBio($bio);
 
             if (count($errors) == 0) {

@@ -55,6 +55,7 @@ class AchievedController extends Controller
     {
         // Json test
  /*       {
+achievedDate : "",
             "id_user" : "3",
 	"id_achievement" : "3"
 }*/
@@ -65,7 +66,7 @@ class AchievedController extends Controller
         $achieved = new Achieved();
 
         if ($request->isMethod('POST')) {
-            //$achievedDate = $data['achievedDate'];
+            $achievedDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['achievedDate']);
             $id_user = $data['id_user'];
             $user = $em->getRepository('WSBundle:User')->find($id_user);
             $achievement_id = $data['id_achievement'];
@@ -73,7 +74,8 @@ class AchievedController extends Controller
 
             $achieved->setUser($user);
             $achieved->setAchievement($achievement);
-            $achieved->setAchievementDate(new DateTime()); //TODO
+            $achieved->setAchievementDate($achievedDate);
+
 
             if (count($errors) == 0) {
 

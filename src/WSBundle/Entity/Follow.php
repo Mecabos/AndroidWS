@@ -29,7 +29,7 @@ class Follow
     private $user;
     /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Project")
-     * @ORM\JoinColumn(name="group", referencedColumnName="id",nullable=true,onDelete="CASCADE")
+     * @ORM\JoinColumn(name="project", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
     private $project;
     /**
@@ -97,9 +97,9 @@ class Follow
     /**
      * @param mixed $followDate
      */
-    public function setFllowDate($followDate)
+    public function setFollowDate($followDate)
     {
-        $this->fllowDate = $followDate;
+        $this->followDate = $followDate;
     }
 
 

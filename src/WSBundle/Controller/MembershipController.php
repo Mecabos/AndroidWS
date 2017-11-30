@@ -34,7 +34,7 @@ class MembershipController extends Controller
         $membership = new Membership();
 
         if ($request->isMethod('POST')) {
-            //$adherationDate = $data['adherationDate'];
+            $adherationDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['adherationDate']);
             $isAdmin = $data['isAdmin'];
             $id_user = $data['id_user'];
             $user = $em->getRepository('WSBundle:User')->find($id_user);
@@ -45,7 +45,7 @@ class MembershipController extends Controller
             $membership->setUser($user);
             $membership->setCollaborationGroup($collaborationGroup);
             $membership->setIsAdmin($isAdmin);
-            $membership->setAdherationDate(new DateTime()); //TODO
+            $membership->setAdherationDate($adherationDate);
 
             if (count($errors) == 0) {
 
