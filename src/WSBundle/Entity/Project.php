@@ -99,10 +99,10 @@ class Project
      */
     private $isCanceled = false;
     /**
-     * @ORM\ManyToOne(targetEntity="SubCategory")
-     * @ORM\JoinColumn(name="subCategory", referencedColumnName="id",nullable=true)
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id",nullable=true)
      */
-    private $subCategory;
+    private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\CollaborationGroup")
@@ -332,17 +332,17 @@ class Project
     /**
      * @return mixed
      */
-    public function getSubCategory()
+    public function getCategory()
     {
-        return $this->subCategory;
+        return $this->category;
     }
 
     /**
-     * @param mixed $subCategory
+     * @param mixed $category
      */
-    public function setSubCategory($subCategory)
+    public function setCategory($category)
     {
-        $this->subCategory = $subCategory;
+        $this->category = $category;
     }
 
 

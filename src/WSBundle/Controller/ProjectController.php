@@ -88,7 +88,7 @@ class ProjectController extends Controller
         if ($request->isMethod('POST')) {
 
             $name = $data['name'];
-
+//TODO:Add category to the return
             $projectsList = $em->getRepository('WSBundle:Project')->findBy(array('name' => $name));
             $projectsListJson = array();
             foreach ($projectsList as $project) {
@@ -143,8 +143,8 @@ class ProjectController extends Controller
             $budget = $data['budget'];
             $equipementsList = $data['equipementsList'];
             $servicesList = $data['servicesList'];
-            $id_subCategory = $data['id_subCategory'];
-            $subCategory = $em->getRepository('WSBundle:User')->find($id_subCategory);
+            $id_category = $data['id_category'];
+            $category = $em->getRepository('WSBundle:Category')->find($id_category);
             $id_collaborationGroup = $data['id_group'];
             $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($id_collaborationGroup);
 
@@ -158,7 +158,7 @@ class ProjectController extends Controller
             $project->setBudget($budget);
             $project->setEquipmentsList($equipementsList);
             $project->setServicesList($servicesList);
-            $project->setSubCategory($subCategory);
+            $project->setCategory($category);
             $project->setCollaborationGroup($collaborationGroup);
 
 

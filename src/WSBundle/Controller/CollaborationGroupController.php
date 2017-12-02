@@ -13,6 +13,7 @@ use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Date;
 use WSBundle\Entity\CollaborationGroup;
 
 class CollaborationGroupController extends Controller
@@ -23,7 +24,6 @@ class CollaborationGroupController extends Controller
 
         //Json test
  /*       {
- date
             "name": "group 1",
     "creator": "1"
 }*/
@@ -36,7 +36,7 @@ class CollaborationGroupController extends Controller
 
         if ($request->isMethod('POST')) {
             $name = $data['name'];
-            $creationDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['creationDate']);
+            $creationDate = new DateTime();
             $creator = $data['creator'];
 
             $collaborationGroup->setName($name);
