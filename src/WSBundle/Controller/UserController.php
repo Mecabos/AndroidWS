@@ -21,6 +21,33 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
 
+    public function getByEmailAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+
+            $email = $data['email'];
+
+            $usersList = $em->getRepository('WSBundle:User')->findBy(array('email' => $email));
+            $usersListJson = array();
+            foreach ($usersList as $user) {
+                $usersListJson[] = array(
+                    "id" => $user->getId(),
+                    "firstname" => $user->getFirstName(),
+                    "lastname" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                    "bio" => $user->getBio(),
+                );
+
+            }
+            return new JsonResponse($usersListJson);
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
     public function newAction(Request $request) //tested
     {
         // Json test

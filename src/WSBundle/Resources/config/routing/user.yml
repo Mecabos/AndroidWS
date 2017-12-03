@@ -12,3 +12,8 @@ user_delete:
     path:     /delete
     defaults: { _controller: "WSBundle:User:delete" }
     methods:  [GET, POST]
+
+user_getByEmail:
+    path:     /getByEmail
+    defaults: { _controller: "WSBundle:User:getByEmail" }
+    methods:  [GET, POST]

@@ -22,7 +22,7 @@ class ProjectController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('GET')) {
             $projectsList = $em->getRepository('WSBundle:Project')->findAll();
             $projectsListJson = array();
             foreach ($projectsList as $project) {
