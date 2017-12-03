@@ -114,14 +114,16 @@ class ProjectController extends Controller
     }
 
 /*{
-"name": "Project #1",
-"startDate": "2017/05/01 12:00:00",
-"finishDate": "2017/06/01 12:30:00",
+"name": "Project #3",
+"startDate": "2017/10/01 12:00:00",
+"finishDate": "2017/11/01 12:30:00",
 "description": "A lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng Description",
 "shortDescription": "A short Description",
-"budget": 1500,
+"budget": 475,
 "equipementsList": "Equipement#1\nEquipement#2\nEquipement#3\nEquipement#4\nEquipement#5",
-"servicesList": "Service#1\nService#2\nService#3"
+"servicesList": "Service#1\nService#2\nService#3",
+"id_category": 2,
+"id_group" : 2
 }*/
     public function createAction(Request $request)
     {

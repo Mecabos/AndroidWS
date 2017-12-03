@@ -58,7 +58,7 @@ class CommentController extends Controller
 
             $project_id = $data['project_id'];
 
-            $commentsList = $em->getRepository('WSBundle:Comment')->findBy(array('project' => $project_id));
+            $commentsList = $em->getRepository('WSBundle:Comment')->findBy(array('project' => $project_id), array('commentDate' => 'DESC'));
             $commentsListJson = array();
             foreach ($commentsList as $comment) {
                 $user = $em->getRepository('WSBundle:User')->find($comment->getUser());
