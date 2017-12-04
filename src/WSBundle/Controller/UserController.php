@@ -30,20 +30,16 @@ class UserController extends Controller
 
             $email = $data['email'];
 
-            $usersList = $em->getRepository('WSBundle:User')->findBy(array('email' => $email));
-            $usersListJson = array();
-            foreach ($usersList as $user) {
-                $usersListJson[] = array(
-                    "id" => $user->getId(),
-                    "firstname" => $user->getFirstName(),
-                    "lastname" => $user->getLastName(),
-                    "email" => $user->getEmail(),
-                    "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
-                    "bio" => $user->getBio(),
-                );
-
-            }
-            return new JsonResponse($usersListJson);
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            $userJson = array(
+                "id" => $user->getId(),
+                "firstname" => $user->getFirstName(),
+                "lastname" => $user->getLastName(),
+                "email" => $user->getEmail(),
+                "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                "bio" => $user->getBio(),
+            );
+            return new JsonResponse($userJson);
         }
         return new JsonResponse(array("type" => "failed"));
     }
