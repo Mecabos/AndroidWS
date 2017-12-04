@@ -31,15 +31,20 @@ class UserController extends Controller
             $email = $data['email'];
 
             $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
-            $userJson = array(
-                "id" => $user->getId(),
-                "firstname" => $user->getFirstName(),
-                "lastname" => $user->getLastName(),
-                "email" => $user->getEmail(),
-                "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
-                "bio" => $user->getBio(),
-            );
-            return new JsonResponse($userJson);
+            if ($user != null){
+                $userJson = array(
+                    "id" => $user->getId(),
+                    "firstname" => $user->getFirstName(),
+                    "lastname" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                    "bio" => $user->getBio(),
+                );
+                return new JsonResponse($userJson);
+            }else {
+                return new JsonResponse(array("type" => "User not found"));
+            }
+
         }
         return new JsonResponse(array("type" => "failed"));
     }
