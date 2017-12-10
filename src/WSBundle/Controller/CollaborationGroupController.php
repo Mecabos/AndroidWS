@@ -72,12 +72,10 @@ class CollaborationGroupController extends Controller
         $em=$this->getDoctrine()->getManager();
 
         if ($request->isMethod('POST')) {
-            $id = $data['id'];
-            $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($id);
-            $name = $data['name'];
-            $creationDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['creationDate']);
-            $collaborationGroup->setCreationDate($creationDate);
-            $collaborationGroup->setName($name);
+            $oldName = $data['oldName'];
+            $newName = $data['newName'];
+            $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->findOneBy(array('name' => $oldName));
+            $collaborationGroup->setName($newName);
 
             if (count($errors) == 0) {
 

@@ -34,10 +34,10 @@ class UserController extends Controller
             if ($user != null){
                 $userJson = array(
                     "id" => $user->getId(),
-                    "firstname" => $user->getFirstName(),
-                    "lastname" => $user->getLastName(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
                     "email" => $user->getEmail(),
-                    "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                    "birthDate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
                     "bio" => $user->getBio(),
                 );
                 return new JsonResponse($userJson);
@@ -53,16 +53,16 @@ class UserController extends Controller
     {
         // Json test
 
-     /*   {
-            "id" : "3",
-	"email" : "mohamed@gmail.com",
-	"firstname" : "mohamed",
-	"lastname" : "kalia",
-	"birthdate" : "2017-11-29 23:51:54.000000",
-	"bio" : "mybio2"
+        /*   {
+               "id" : "3",
+       "email" : "mohamed@gmail.com",
+       "firstname" : "mohamed",
+       "lastname" : "kalia",
+       "birthdate" : "2017-11-29 23:51:54.000000",
+       "bio" : "mybio2"
 
-}
-     */
+   }
+        */
         $data=json_decode($request->getContent(),true);
         $errors = array();
 
@@ -100,14 +100,14 @@ class UserController extends Controller
     {
 
         //Json Test
-       /* {
-            "id" : "3",
-	"email" : "mohamed@gmail.com",
-	"firstname" : "mohamed",
-	"lastname" : "kalia",
-	"bio" : "mybio2"
+        /* {
+             "id" : "3",
+     "email" : "mohamed@gmail.com",
+     "firstname" : "mohamed",
+     "lastname" : "kalia",
+     "bio" : "mybio2"
 
-}*/
+ }*/
 
         $data=json_decode($request->getContent(),true);
         $errors = array();
@@ -116,15 +116,15 @@ class UserController extends Controller
 
 
         if ($request->isMethod('POST')) {
-            $id_user = $data['id'];
-            $user = $em->getRepository('WSBundle:User')->find($id_user);
             $email = $data['email'];
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            //$email = $data['email'];
             $firstname = $data['firstname'];
             $lastname = $data['lastname'];
             $birthdate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['birthdate']);
             $bio = $data['bio'];
 
-            $user->setEmail($email);
+            //$user->setEmail($email);
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
             $user->setBirthDate($birthdate);
@@ -148,10 +148,10 @@ class UserController extends Controller
 
         //Json Test
 
-       /* {
-            "id" : "2"
+        /* {
+             "id" : "2"
 
-}*/
+ }*/
         $data=json_decode($request->getContent(),true);
         $errors = array();
 
