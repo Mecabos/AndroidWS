@@ -92,4 +92,43 @@ class CollaborationGroupController extends Controller
 
     }
 
+    public function getByAdminUserAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        if ($request->isMethod('POST')) {
+
+            $email = $data['email'];
+
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            if ($user != null) {
+                $parameters = array(
+                    'user' => $user->getId(),
+                );
+
+                $qb->select('g')
+                    ->from('WSBundle:CollaborationGroup','g')
+                    ->Join('WSBundle:Membership', 'm', 'WITH' , "g.id = m.CollaborationGroup")
+                    ->Where('m.isAdmin =1')
+                    ->andWhere('m.user = :user')
+                    ->setParameters($parameters);
+                $groupsList = $qb->getQuery()->getArrayResult();
+                $groupsListJson = array();
+                foreach ($groupsList as $group) {
+                    array_push($groupsListJson,array(
+                        "id" => $group['id'],
+                        "name" => $group['name'],
+                    ));
+                }
+                return new JsonResponse($groupsListJson);
+            }
+
+            return new JsonResponse(array("type" => "no user with that mail"));
+
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
 }

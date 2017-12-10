@@ -30,10 +30,9 @@ class UserController extends Controller
 
             $email = $data['email'];
 
-            $usersList = $em->getRepository('WSBundle:User')->findBy(array('email' => $email));
-            $usersListJson = array();
-            foreach ($usersList as $user) {
-                $usersListJson[] = array(
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            if ($user != null){
+                $userJson = array(
                     "id" => $user->getId(),
                     "firstname" => $user->getFirstName(),
                     "lastname" => $user->getLastName(),
@@ -41,9 +40,11 @@ class UserController extends Controller
                     "birthdate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
                     "bio" => $user->getBio(),
                 );
-
+                return new JsonResponse($userJson);
+            }else {
+                return new JsonResponse(array("type" => "User not found"));
             }
-            return new JsonResponse($usersListJson);
+
         }
         return new JsonResponse(array("type" => "failed"));
     }

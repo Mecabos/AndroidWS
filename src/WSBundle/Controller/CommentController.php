@@ -5,13 +5,13 @@ namespace WSBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 use WSBundle\Entity\Comment;
 
 class CommentController extends Controller
 {
 /*{
 "text": "This project is so good! i'm hyped",
-"commentDate": "2017/05/01 12:00:00",
 "id_user": 1,
 "id_project": 1
 }*/
@@ -26,7 +26,7 @@ class CommentController extends Controller
 
         if ($request->isMethod('POST')) {
             $text = $data['text'];
-            $commentDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['commentDate']);
+            $commentDate = new \DateTime();
             $id_user = $data['id_user'];
             $user = $em->getRepository('WSBundle:User')->find($id_user);
             $id_project = $data['id_project'];
@@ -38,11 +38,19 @@ class CommentController extends Controller
             $comment->setUser($user) ;
 
             if (count($errors) == 0) {
-
                 $em->persist($comment);
                 $em->flush();
             }
-            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+            return new JsonResponse(array(
+                "id" => $comment->getId(),
+                "text" => $comment->getText(),
+                "commentDate" => $comment->getCommentDate()->format("Y/m/d H:m:s"),
+                "user" => array(
+                    "id" => $user->getId(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                )
+            ));
 
 
         }

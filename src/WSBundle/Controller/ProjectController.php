@@ -29,9 +29,9 @@ class ProjectController extends Controller
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
-                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
-                    "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
+                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:i:s"),
+                    "startDate" => $project->getStartDate()->format("Y/m/d H:i:s"),
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:i:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
@@ -62,9 +62,9 @@ class ProjectController extends Controller
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
-                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
-                    "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
+                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:i:s"),
+                    "startDate" => $project->getStartDate()->format("Y/m/d H:i:s"),
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:i:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
@@ -95,9 +95,9 @@ class ProjectController extends Controller
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
-                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:m:s"),
-                    "startDate" => $project->getStartDate()->format("Y/m/d H:m:s"),
-                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:m:s"), //"Y/m/d H:m:s T" for time zone
+                    "creationDate" => $project->getCreationDate()->format("Y/m/d H:i:s"),
+                    "startDate" => $project->getStartDate()->format("Y/m/d H:i:s"),
+                    "finishDate" => $project->getFinishDate()->format("Y/m/d H:i:s"), //"Y/m/d H:m:s T" for time zone
                     "description" => $project->getDescription(),
                     "shortDescription" => $project->getShortDescription(),
                     "budget" => $project->getBudget(),
@@ -113,24 +113,24 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-/*{
-"name": "Project #3",
-"startDate": "2017/10/01 12:00:00",
-"finishDate": "2017/11/01 12:30:00",
-"description": "A lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng Description",
-"shortDescription": "A short Description",
-"budget": 475,
-"equipementsList": "Equipement#1\nEquipement#2\nEquipement#3\nEquipement#4\nEquipement#5",
-"servicesList": "Service#1\nService#2\nService#3",
-"id_category": 2,
-"id_group" : 2
-}*/
+    /*{
+    "name": "Project #3",
+    "startDate": "2017/10/01 12:00:00",
+    "finishDate": "2017/11/01 12:30:00",
+    "description": "A lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng Description",
+    "shortDescription": "A short Description",
+    "budget": 475,
+    "equipementsList": "Equipement#1\nEquipement#2\nEquipement#3\nEquipement#4\nEquipement#5",
+    "servicesList": "Service#1\nService#2\nService#3",
+    "id_category": 2,
+    "id_group" : 2
+    }*/
     public function createAction(Request $request)
     {
         $errors = array();
         $data = json_decode($request->getContent(), true);
 
-        $em=$this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $project = new Project();
 
@@ -138,8 +138,8 @@ class ProjectController extends Controller
             $name = $data['name'];
             $creationDate = new \DateTime();
 
-            $startDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['startDate']);
-            $finishDate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['finishDate']);
+            $startDate = \DateTime::createFromFormat("Y/m/d H:i:s", $data['startDate']);
+            $finishDate = \DateTime::createFromFormat("Y/m/d H:i:s", $data['finishDate']);
             $description = $data['description'];
             $shortDescription = $data['shortDescription'];
             $budget = $data['budget'];
@@ -164,20 +164,29 @@ class ProjectController extends Controller
             $project->setCollaborationGroup($collaborationGroup);
 
 
-
             if (count($errors) == 0) {
 
                 $em->persist($project);
                 $em->flush();
             }
-            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+            return new JsonResponse(array(
+                "id" => $project->getId(),
+                "name" => $project->getName(),
+                "creationDate" => $project->getCreationDate()->format("Y/m/d H:i:s"),
+                "startDate" => $project->getStartDate()->format("Y/m/d H:i:s"),
+                "finishDate" => $project->getFinishDate()->format("Y/m/d H:i:s"),
+                "description" => $project->getDescription(),
+                "shortDescription" => $project->getShortDescription(),
+                "budget" => $project->getBudget(),
+                "currentBudget" => $project->getCurrentBudget(),
+                "equipmentsList" => $project->getEquipmentsList(),
+                "servicesList" => $project->getServicesList(),
+                "isCanceled" => $project->getIsCanceled(),
+            ));
 
 
         }
-        return new JsonResponse(array("type"=>"failed",'errors' => $errors));
+        return new JsonResponse(array("type" => "failed", 'errors' => $errors));
     }
-
-
-
 
 }

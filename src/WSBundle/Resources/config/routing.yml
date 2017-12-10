@@ -30,3 +30,7 @@ ws_rate:
     resource: "@WSBundle/Resources/config/routing/rate.yml"
     prefix:   /rate
 
+ws_category:
+    resource: "@WSBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+

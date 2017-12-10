@@ -7,3 +7,8 @@ collaborationGroup_updateName:
     path:     /updateName
     defaults: { _controller: "WSBundle:CollaborationGroup:updateName" }
     methods:  [GET, POST]
+
+collaborationGroup_getByAdminUser:
+    path:     /getByAdminUser
+    defaults: { _controller: "WSBundle:CollaborationGroup:getByAdminUser" }
+    methods:  [POST]
