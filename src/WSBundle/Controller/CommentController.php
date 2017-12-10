@@ -27,8 +27,8 @@ class CommentController extends Controller
         if ($request->isMethod('POST')) {
             $text = $data['text'];
             $commentDate = new \DateTime();
-            $id_user = $data['id_user'];
-            $user = $em->getRepository('WSBundle:User')->find($id_user);
+            $email_user = $data['email_user'];
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email'=>$email_user));
             $id_project = $data['id_project'];
             $project = $em->getRepository('WSBundle:Project')->find($id_project);
 

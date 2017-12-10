@@ -1,4 +1,9 @@
 follow_new:
     path:     /new
     defaults: { _controller: "WSBundle:Follow:addFollow" }
-    methods:  [GET, POST]
+    methods:  [POST]
+
+follow_count_by_project:
+    path:     /countByProject
+    defaults: { _controller: "WSBundle:Follow:countByProject" }
+    methods:  [POST]

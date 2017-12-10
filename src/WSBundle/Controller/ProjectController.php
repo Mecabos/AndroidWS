@@ -23,9 +23,11 @@ class ProjectController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($request->isMethod('GET')) {
-            $projectsList = $em->getRepository('WSBundle:Project')->findAll();
+            $projectsList = $em->getRepository('WSBundle:Project')->findBy(array(),array('startDate' => 'DESC'));
             $projectsListJson = array();
             foreach ($projectsList as $project) {
+                $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($project->getCollaborationGroup());
+                $category = $em->getRepository('WSBundle:Category')->find($project->getCategory());
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
@@ -39,6 +41,16 @@ class ProjectController extends Controller
                     "equipmentsList" => $project->getEquipmentsList(),
                     "servicesList" => $project->getServicesList(),
                     "isCanceled" => $project->getIsCanceled(),
+                    "collaborationGroup" => array(
+                        "id" => $collaborationGroup->getId(),
+                        "name" => $collaborationGroup->getName(),
+                        "creationDate" => $collaborationGroup->getCreationDate()->format("Y/m/d H:i:s"),
+                    ),
+                    "category" => array(
+                        "id" => $category->getId(),
+                        "label" => $category->getLabel(),
+                        "color" => $category->getColor(),
+                    )
                 );
 
             }
@@ -59,6 +71,8 @@ class ProjectController extends Controller
             $projectsList = $em->getRepository('WSBundle:Project')->findBy(array('id' => $id));
             $projectsListJson = array();
             foreach ($projectsList as $project) {
+                $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($project->getCollaborationGroup());
+                $category = $em->getRepository('WSBundle:Category')->find($project->getCategory());
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
@@ -72,6 +86,16 @@ class ProjectController extends Controller
                     "equipmentsList" => $project->getEquipmentsList(),
                     "servicesList" => $project->getServicesList(),
                     "isCanceled" => $project->getIsCanceled(),
+                    "collaborationGroup" => array(
+                        "id" => $collaborationGroup->getId(),
+                        "name" => $collaborationGroup->getName(),
+                        "creationDate" => $collaborationGroup->getCreationDate()->format("Y/m/d H:i:s"),
+                    ),
+                    "category" => array(
+                        "id" => $category->getId(),
+                        "label" => $category->getLabel(),
+                        "color" => $category->getColor(),
+                    )
                 );
 
             }
@@ -88,10 +112,11 @@ class ProjectController extends Controller
         if ($request->isMethod('POST')) {
 
             $name = $data['name'];
-//TODO:Add category to the return
             $projectsList = $em->getRepository('WSBundle:Project')->findBy(array('name' => $name));
             $projectsListJson = array();
             foreach ($projectsList as $project) {
+                $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($project->getCollaborationGroup());
+                $category = $em->getRepository('WSBundle:Category')->find($project->getCategory());
                 $projectsListJson[] = array(
                     "id" => $project->getId(),
                     "name" => $project->getName(),
@@ -105,6 +130,16 @@ class ProjectController extends Controller
                     "equipmentsList" => $project->getEquipmentsList(),
                     "servicesList" => $project->getServicesList(),
                     "isCanceled" => $project->getIsCanceled(),
+                    "collaborationGroup" => array(
+                        "id" => $collaborationGroup->getId(),
+                        "name" => $collaborationGroup->getName(),
+                        "creationDate" => $collaborationGroup->getCreationDate()->format("Y/m/d H:i:s"),
+                    ),
+                    "category" => array(
+                        "id" => $category->getId(),
+                        "label" => $category->getLabel(),
+                        "color" => $category->getColor(),
+                    )
                 );
 
             }
@@ -113,18 +148,6 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
-    /*{
-    "name": "Project #3",
-    "startDate": "2017/10/01 12:00:00",
-    "finishDate": "2017/11/01 12:30:00",
-    "description": "A lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng Description",
-    "shortDescription": "A short Description",
-    "budget": 475,
-    "equipementsList": "Equipement#1\nEquipement#2\nEquipement#3\nEquipement#4\nEquipement#5",
-    "servicesList": "Service#1\nService#2\nService#3",
-    "id_category": 2,
-    "id_group" : 2
-    }*/
     public function createAction(Request $request)
     {
         $errors = array();
@@ -150,7 +173,6 @@ class ProjectController extends Controller
             $id_collaborationGroup = $data['id_group'];
             $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($id_collaborationGroup);
 
-
             $project->setName($name);
             $project->setCreationDate($creationDate);
             $project->setStartDate($startDate);
@@ -163,12 +185,12 @@ class ProjectController extends Controller
             $project->setCategory($category);
             $project->setCollaborationGroup($collaborationGroup);
 
-
             if (count($errors) == 0) {
 
                 $em->persist($project);
                 $em->flush();
             }
+
             return new JsonResponse(array(
                 "id" => $project->getId(),
                 "name" => $project->getName(),
@@ -182,6 +204,17 @@ class ProjectController extends Controller
                 "equipmentsList" => $project->getEquipmentsList(),
                 "servicesList" => $project->getServicesList(),
                 "isCanceled" => $project->getIsCanceled(),
+                "collaborationGroup" => array(
+                    "id" => $collaborationGroup->getId(),
+                    "name" => $collaborationGroup->getName(),
+                    "creationDate" => $collaborationGroup->getCreationDate()->format("Y/m/d H:i:s"),
+                ),
+                "category" => array(
+                    "id" => $category->getId(),
+                    "label" => $category->getLabel(),
+                    "color" => $category->getColor(),
+                )
+
             ));
 
 
