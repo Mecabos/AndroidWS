@@ -118,13 +118,13 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $email = $data['email'];
             $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
-            $email = $data['email'];
+            //$email = $data['email'];
             $firstname = $data['firstname'];
             $lastname = $data['lastname'];
             $birthdate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['birthdate']);
             $bio = $data['bio'];
 
-            $user->setEmail($email);
+            //$user->setEmail($email);
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
             $user->setBirthDate($birthdate);
