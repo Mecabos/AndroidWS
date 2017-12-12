@@ -18,16 +18,12 @@ class Follow
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id",nullable=false,onDelete="CASCADE")
      */
     private $user;
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="WSBundle\Entity\Project")
      * @ORM\JoinColumn(name="project", referencedColumnName="id",nullable=true,onDelete="CASCADE")
      */
@@ -37,22 +33,6 @@ class Follow
      * @ORM\Column(name="followDate", type="datetime")
      */
     private $followDate;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

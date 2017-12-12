@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CollaborationGroup
  * @ORM\Entity(repositoryClass="WSBundle\Repository\CollaborationGroupRepository")
- * @ORM\Table(name="CollaborationGroup")
+ * @ORM\Table(name="collaborationgroup")
  */
 class CollaborationGroup
 {
