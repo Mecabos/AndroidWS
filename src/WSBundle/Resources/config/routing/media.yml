@@ -1,0 +1,10 @@
+project_media_create:
+    path:     /project/create
+    defaults: { _controller: "WSBundle:Media:projectMediaCreate" }
+    methods:  [POST]
+
+project_media_get_by_project:
+    path:     /project/get
+    defaults: { _controller: "WSBundle:Media:getProjectMediaByProject" }
+    methods:  [POST]
+

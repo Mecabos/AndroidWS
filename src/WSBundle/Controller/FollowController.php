@@ -27,6 +27,7 @@ class FollowController extends Controller
         $follow = new Follow();
 
         if ($request->isMethod('POST')) {
+
             $followDate = new DateTime();
             $email_user = $data['email_user'];
             $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email_user));

@@ -34,3 +34,6 @@ ws_category:
     resource: "@WSBundle/Resources/config/routing/category.yml"
     prefix:   /category
 
+ws_media:
+    resource: "@WSBundle/Resources/config/routing/media.yml"
+    prefix:   /media
