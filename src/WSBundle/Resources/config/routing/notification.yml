@@ -1,0 +1,5 @@
+notification_new:
+    path:     /new
+    defaults: { _controller: "WSBundle:Notification:new" }
+    methods:  [GET, POST]
+

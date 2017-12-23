@@ -34,3 +34,8 @@ ws_category:
     resource: "@WSBundle/Resources/config/routing/category.yml"
     prefix:   /category
 
+ws_notification:
+    resource: "@WSBundle/Resources/config/routing/notification.yml"
+    prefix:   /notification
+
+
