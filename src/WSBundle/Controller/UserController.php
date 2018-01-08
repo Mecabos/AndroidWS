@@ -49,6 +49,65 @@ class UserController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
+    public function getByEmailWithCountAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+
+            $qb = $em->createQueryBuilder();
+
+            $email = $data['email'];
+
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            if ($user != null){
+
+                $parameters = array(
+                    'user' => $user->getId(),
+                );
+
+                $qb->select('g')
+                    ->from('WSBundle:CollaborationGroup','g')
+                    ->Join('WSBundle:Membership', 'm', 'WITH' , "g.id = m.CollaborationGroup")
+                    ->Where('m.user = :user')
+                    ->setParameters($parameters);
+                $groupsList = $qb->getQuery()->getArrayResult();
+
+                $count=0;
+                foreach ($groupsList as $group) {
+
+                    $parameters3 = array(
+                        'collaborationGroup' => $group['id'],
+                    );
+                    $qba = $em->createQueryBuilder();
+                    $qba->select('count(project.id)');
+                    $qba->from('WSBundle:Project','project')
+                        ->Where('project.collaborationGroup = :collaborationGroup')
+                        ->setParameters($parameters3);
+
+                    $count += $qba->getQuery()->getSingleScalarResult();
+
+                }
+
+                $countJson = array(
+                    "id" => $user->getId(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "birthDate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                    "bio" => $user->getBio(),
+                    "projectsCount" => $count,
+                );
+                return new JsonResponse($countJson);
+            }else {
+                return new JsonResponse(array("type" => "User not found"));
+            }
+
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
     public function newAction(Request $request) //tested
     {
         // Json test
@@ -166,6 +225,35 @@ class UserController extends Controller
             if (count($errors) == 0) {
 
                 $em->remove($user);
+                $em->flush();
+            }
+            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+
+
+        }
+        return new JsonResponse(array("type"=>"failed"));
+
+    }
+
+    public function updateTokenAction(Request $request) //test
+    {
+
+        $data=json_decode($request->getContent(),true);
+        $errors = array();
+
+        $em=$this->getDoctrine()->getManager();
+
+
+        if ($request->isMethod('POST')) {
+            $email = $data['email'];
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            //$email = $data['email'];
+            $IdToken = $data['token'];
+            $user->setToken($IdToken);
+
+            if (count($errors) == 0) {
+
+                $em->persist($user);
                 $em->flush();
             }
             return new JsonResponse(array("type"=>"success",'errors' => $errors));

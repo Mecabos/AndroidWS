@@ -151,6 +151,8 @@ class CollaborationGroupController extends Controller
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb2 = $em->createQueryBuilder();
+        $qb3 = $em->createQueryBuilder();
+        $qb4 = $em->createQueryBuilder();
         if ($request->isMethod('POST')) {
 
             $email = $data['email'];
@@ -164,18 +166,17 @@ class CollaborationGroupController extends Controller
                 $qb->select('g')
                     ->from('WSBundle:CollaborationGroup','g')
                     ->Join('WSBundle:Membership', 'm', 'WITH' , "g.id = m.CollaborationGroup")
-                    //->Where('m.isAdmin =1')
                     ->Where('m.user = :user')
                     ->setParameters($parameters);
                 $groupsList = $qb->getQuery()->getArrayResult();
                 $groupsListJson = array();
 
                 foreach ($groupsList as $group) {
-                    //$creator = new User();
-                    //$creator = $em->getRepository('WSBundle:User')->find($group['creator']);
+                    /*$creator = new User();
+                    $creator = $em->getRepository('WSBundle:User')->find($group['creator']);
 
 
-                    /*$parameters2 = array(
+                    $parameters2 = array(
                         'creator' => $group['creator'],
                     );
                     $qb2->select('u')
@@ -184,18 +185,36 @@ class CollaborationGroupController extends Controller
                         //->Where('m.isAdmin =1')
                         ->Where('gr.creator = :creator')
                         ->setParameters($parameters2);
-                    $userCreator = $qb2->getQuery()->getResult();
-                   */
+                    $userCreator = $qb2->getQuery()->getResult();*/
+
+
+
+
+                    $parameters3 = array(
+                        'collaborationGroup' => $group['id'],
+                    );
+
+
+                    $qba = $em->createQueryBuilder();
+                    $qba->select('count(project.id)');
+                    $qba->from('WSBundle:Project','project')
+                        ->Where('project.collaborationGroup = :collaborationGroup')
+                        ->setParameters($parameters3);
+
+                    $count = $qba->getQuery()->getSingleScalarResult();
+
+
+
 
                     $date = $group['creationDate'];
                     $creationDate = $date->format('Y/m/d H:m:s');
-
 
                     array_push($groupsListJson,array(
                         "id" => $group['id'],
                         "name" => $group['name'],
                         "creationDate" => $creationDate,
-                        //"creator" => $userCreator,
+                        "projectsCount" => $count,
+                        //"creator" => $creatorid,
                         //"creator" => $group['creator'],
                     ));
                 }

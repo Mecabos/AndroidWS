@@ -98,6 +98,7 @@ class MembershipController extends Controller
         $data = json_decode($request->getContent(), true);
 
         $em = $this->getDoctrine()->getManager();
+
         if ($request->isMethod('POST')) {
 
             $name = $data['groupName'];
@@ -106,6 +107,8 @@ class MembershipController extends Controller
             $groupId=$collaborationGroup->getId();
 
             $memberList = $em->getRepository('WSBundle:Membership')->findBy(array('CollaborationGroup' => $groupId));
+
+
 
             $userListJson = array();
             foreach ($memberList as $membership) {
