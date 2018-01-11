@@ -17,10 +17,10 @@ class NotificationController
 
     public function newAction(Request $request) //tested
     {
-
         $data = json_decode($request->getContent(), true);
         //$tokens = $data['tokens'];
         //$jsonTokens = json_decode($tokens, true);
+
 
 
         if ($request->isMethod('POST')) {
