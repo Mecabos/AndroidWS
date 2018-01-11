@@ -26,6 +26,19 @@ class ProjectController extends Controller
             $projectsList = $em->getRepository('WSBundle:Project')->findBy(array(),array('startDate' => 'DESC'));
             $projectsListJson = array();
             foreach ($projectsList as $project) {
+
+                $qb = $em->createQueryBuilder();
+                $parameters = array(
+                    'project' => $project->getId(),
+                );
+
+                $qb->select('COUNT(f.followDate)')
+                    ->from('WSBundle:Follow', 'f')
+                    ->Where('f.project = :project')
+                    ->setParameters($parameters);
+
+                $followsCount = $qb->getQuery()->getSingleScalarResult();
+
                 $collaborationGroup = $em->getRepository('WSBundle:CollaborationGroup')->find($project->getCollaborationGroup());
                 $category = $em->getRepository('WSBundle:Category')->find($project->getCategory());
                 $projectsListJson[] = array(
@@ -50,7 +63,8 @@ class ProjectController extends Controller
                         "id" => $category->getId(),
                         "label" => $category->getLabel(),
                         "color" => $category->getColor(),
-                    )
+                    ),
+                    "followCount" => $followsCount
                 );
 
             }
