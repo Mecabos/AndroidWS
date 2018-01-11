@@ -205,6 +205,8 @@ class CollaborationGroupController extends Controller
 
 
 
+                    $membership = $em->getRepository('WSBundle:Membership')->findOneBy(array('user' => $user, 'CollaborationGroup' => $group['id']));
+                    $isAdmin = $membership->getIsAdmin();
 
                     $date = $group['creationDate'];
                     $creationDate = $date->format('Y/m/d H:m:s');
@@ -214,6 +216,7 @@ class CollaborationGroupController extends Controller
                         "name" => $group['name'],
                         "creationDate" => $creationDate,
                         "projectsCount" => $count,
+                        "isUserAdmin" => $isAdmin,
                         //"creator" => $creatorid,
                         //"creator" => $group['creator'],
                     ));

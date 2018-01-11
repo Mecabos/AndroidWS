@@ -37,8 +37,12 @@ ws_category:
 ws_media:
     resource: "@WSBundle/Resources/config/routing/media.yml"
     prefix:   /media
+
 ws_notification:
     resource: "@WSBundle/Resources/config/routing/notification.yml"
     prefix:   /notification
 
+ws_payment:
+    resource: "@WSBundle/Resources/config/routing/payment.yml"
+    prefix:   /payment
 

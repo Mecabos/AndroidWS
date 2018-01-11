@@ -1,0 +1,9 @@
+payment_new:
+    path:     /create
+    defaults: { _controller: "WSBundle:Payment:create" }
+    methods:  [POST]
+
+payment_count_by_project:
+    path:     /countByProject
+    defaults: { _controller: "WSBundle:Payment:countByProject" }
+    methods:  [POST]
