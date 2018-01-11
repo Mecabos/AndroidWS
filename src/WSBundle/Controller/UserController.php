@@ -90,6 +90,19 @@ class UserController extends Controller
 
                 }
 
+                $contributions=0;
+                $parameters4 = array(
+                    'user' => $user->getId()
+                );
+                $qbc = $em->createQueryBuilder();
+                $qbc->select('count(payment.id)');
+                $qbc->from('WSBundle:Payment','payment')
+                    ->Where('payment.user = :user')
+                    ->setParameters($parameters4);
+
+                $contributions += $qbc->getQuery()->getSingleScalarResult();
+
+
                 $countJson = array(
                     "id" => $user->getId(),
                     "firstName" => $user->getFirstName(),
@@ -98,6 +111,7 @@ class UserController extends Controller
                     "birthDate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
                     "bio" => $user->getBio(),
                     "projectsCount" => $count,
+                    "contributions" => $contributions,
                 );
                 return new JsonResponse($countJson);
             }else {
