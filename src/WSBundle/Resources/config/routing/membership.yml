@@ -7,3 +7,8 @@ membership_deleteMember:
     path:     /deleteMember
     defaults: { _controller: "WSBundle:Membership:deleteMember" }
     methods:  [GET, POST]
+
+membership_getByGroupNameMember:
+    path:     /getByGroupName
+    defaults: { _controller: "WSBundle:Membership:getByGroupName" }
+    methods:  [GET, POST]

@@ -17,3 +17,14 @@ user_getByEmail:
     path:     /getByEmail
     defaults: { _controller: "WSBundle:User:getByEmail" }
     methods:  [GET, POST]
+
+user_getCount:
+    path:     /getProjectsCount
+    defaults: { _controller: "WSBundle:User:getByEmailWithCount" }
+    methods:  [GET, POST]
+
+user_udateToken:
+    path:     /updateToken
+    defaults: { _controller: "WSBundle:User:updateToken" }
+    methods:  [GET, POST]
+

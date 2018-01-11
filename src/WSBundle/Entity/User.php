@@ -40,6 +40,11 @@ class User
      */
     private $bio;
 
+    /**
+     * @ORM\Column(type="string",length=500,nullable=true)
+     */
+    private $token;
+
 
     public function __construct()
     {
@@ -142,6 +147,23 @@ class User
     {
         $this->email = $email;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
 
 
 

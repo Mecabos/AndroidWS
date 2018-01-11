@@ -12,3 +12,8 @@ collaborationGroup_getByAdminUser:
     path:     /getByAdminUser
     defaults: { _controller: "WSBundle:CollaborationGroup:getByAdminUser" }
     methods:  [POST]
+
+collaborationGroup_getByUser:
+    path:     /getByUser
+    defaults: { _controller: "WSBundle:CollaborationGroup:getByUser" }
+    methods:  [POST]

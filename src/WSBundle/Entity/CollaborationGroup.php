@@ -25,9 +25,9 @@ class CollaborationGroup
     private $id;
 
     /**
-     * @ORM\Column(type="string", length = 255,nullable=false)
+     * @ORM\Column(type="string", length = 255,nullable=false, unique=true)
      */
-    private $name; //TODO : must be unique
+    private $name;
     /**
      *
      * @ORM\Column(name="creationDate", type="datetime")
