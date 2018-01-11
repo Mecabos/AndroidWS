@@ -18,44 +18,12 @@ class NotificationController
     public function newAction(Request $request) //tested
     {
 
-        /* $data=json_decode($request->getContent(),true);
-         $errors = array();
-
-         $em=$this->getDoctrine()->getManager();
-
-         $user = new User();
-
-         if ($request->isMethod('POST')) {
-             $email = $data['email'];
-             $firstname = $data['firstname'];
-             $lastname = $data['lastname'];
-             $birthdate = \DateTime::createFromFormat("Y/m/d H:m:s", $data['birthdate']);
-             $bio = $data['bio'];
-
-             $user->setEmail($email);
-             $user->setFirstName($firstname);
-             $user->setLastName($lastname);
-             $user->setBirthDate($birthdate);
-             $user->setBio($bio);
-
-             if (count($errors) == 0) {
-
-                 $em->persist($user);
-                 $em->flush();
-             }
-             return new JsonResponse(array("type"=>"success",'errors' => $errors));
-
-
-         }
-         return new JsonResponse(array("type"=>"failed"));*/
-
-
         $data = json_decode($request->getContent(), true);
-        //echo 'Hello';
+        //$tokens = $data['tokens'];
+        //$jsonTokens = json_decode($tokens, true);
 
-        //   $registrationIds = ;
 
-        if ($request->isMethod('POST')||$request->isMethod('GET')) {
+        if ($request->isMethod('POST')) {
             $token = $data['token'];
             $title = $data['title'];
             $body = $data['body'];
@@ -69,7 +37,8 @@ class NotificationController
             );
             $fields = array
             (
-                'to' => $token,
+                //'to' => $token,
+                'registration_ids' => $token,
                 'notification' => $msg
             );
 

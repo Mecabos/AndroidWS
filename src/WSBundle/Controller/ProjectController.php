@@ -222,4 +222,39 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed", 'errors' => $errors));
     }
 
+    public function getMembersByGroupNameAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isMethod('POST')) {
+
+            $projectId = $data['projectId'];
+            $project = $em->getRepository('WSBundle:Project')->find($projectId);
+
+            $groupId = $project->getCollaborationGroup();
+
+            $memberList = $em->getRepository('WSBundle:Membership')->findBy(array('CollaborationGroup' => $groupId));
+
+
+            $userListJson = array();
+            foreach ($memberList as $membership) {
+
+                $user = $em->getRepository('WSBundle:User')->find($membership->getUser());
+
+                $userListJson[] = array(
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "id" => $user->getId(),
+                    "token" => $user->getToken(),
+                );
+
+            }
+            return new JsonResponse($userListJson);
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
 }
