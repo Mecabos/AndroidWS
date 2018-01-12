@@ -26,6 +26,7 @@ class PaymentController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $payment = new Payment();
+        $notify=false;
 
         if ($request->isMethod('POST')) {
 
@@ -35,6 +36,10 @@ class PaymentController extends Controller
             $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email_user));
             $id_project = $data['id_project'];
             $project = $em->getRepository('WSBundle:Project')->find($id_project);
+
+            if ($project->getCurrentBudget()<$project->getBudget()&&$project->getCurrentBudget()+$amount>=$project->getBudget()){
+                $notify=true;
+            }
 
             $payment->setUser($user);
             $payment->setProject($project);
@@ -49,7 +54,7 @@ class PaymentController extends Controller
                 $em->persist($payment);
                 $em->persist($project);
                 $em->flush();
-                return new JsonResponse(array("type" => "success", 'errors' => $errors));
+                return new JsonResponse(array("type" => "success", 'errors' => $errors, "notify" => $notify));
             }
 
 
