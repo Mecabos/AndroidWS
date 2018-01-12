@@ -22,3 +22,10 @@ project_getMembers:
     path:     /getMembers
     defaults: { _controller: "WSBundle:Project:getMembersByGroupName" }
     methods:  [GET, POST]
+
+project_getContributionsByProject:
+    path:     /getContributionsByProject
+    defaults: { _controller: "WSBundle:Project:getContributionsByProject" }
+    methods:  [GET, POST]
+
+

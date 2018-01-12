@@ -272,4 +272,42 @@ class ProjectController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
+    public function getContributionsByProjectAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isMethod('POST')) {
+
+            $projectId = $data['projectId'];
+            //$project = $em->getRepository('WSBundle:Project')->find($projectId);
+
+            $contributionList = $em->getRepository('WSBundle:Payment')->findBy(array('project' => $projectId));
+
+            $contributionListJson = array();
+            foreach ($contributionList as $contribution) {
+
+                $user = $em->getRepository('WSBundle:User')->find($contribution->getUser());
+
+                $date = $contribution->getPaymentDate();
+                $paymentDate = $date->format('Y/m/d H:m:s');
+
+                $contributionListJson[] = array(
+                    "paymentDate" => $paymentDate,
+                    "amount" => $contribution->getAmount(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "id" => $user->getId(),
+                    //"token" => $user->getToken(),
+                );
+
+
+            }
+            return new JsonResponse($contributionListJson);
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
 }
