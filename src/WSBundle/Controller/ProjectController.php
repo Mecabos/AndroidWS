@@ -65,6 +65,7 @@ class ProjectController extends Controller
                         "color" => $category->getColor(),
                     ),
                     "followCount" => $followsCount
+
                 );
 
             }
