@@ -49,6 +49,7 @@ class CommentController extends Controller
                     "id" => $user->getId(),
                     "firstName" => $user->getFirstName(),
                     "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail()
                 )
             ));
 
@@ -78,6 +79,7 @@ class CommentController extends Controller
                         "id" => $user->getId(),
                         "firstName" => $user->getFirstName(),
                         "lastName" => $user->getLastName(),
+                        "email" => $user->getEmail()
                     )
                 );
             }
