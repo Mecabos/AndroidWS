@@ -151,8 +151,8 @@ class CollaborationGroupController extends Controller
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb2 = $em->createQueryBuilder();
-        $qb3 = $em->createQueryBuilder();
-        $qb4 = $em->createQueryBuilder();
+        //$qb3 = $em->createQueryBuilder();
+        //$qb4 = $em->createQueryBuilder();
         if ($request->isMethod('POST')) {
 
             $email = $data['email'];
@@ -172,6 +172,8 @@ class CollaborationGroupController extends Controller
                 $groupsListJson = array();
 
                 foreach ($groupsList as $group) {
+
+                    //creator
                     /*$creator = new User();
                     $creator = $em->getRepository('WSBundle:User')->find($group['creator']);
 
@@ -204,6 +206,15 @@ class CollaborationGroupController extends Controller
                     $count = $qba->getQuery()->getSingleScalarResult();
 
 
+                    $qbb = $em->createQueryBuilder();
+                    $qbb->select('count(membership.isAdmin)');
+                    $qbb->from('WSBundle:Membership','membership')
+                        ->Where('membership.CollaborationGroup = :collaborationGroup')
+                        ->setParameters($parameters3);
+
+                    $countMembers = $qbb->getQuery()->getSingleScalarResult();
+
+
 
                     $membership = $em->getRepository('WSBundle:Membership')->findOneBy(array('user' => $user, 'CollaborationGroup' => $group['id']));
                     $isAdmin = $membership->getIsAdmin();
@@ -217,6 +228,7 @@ class CollaborationGroupController extends Controller
                         "creationDate" => $creationDate,
                         "projectsCount" => $count,
                         "isUserAdmin" => $isAdmin,
+                        "countMembers" => $countMembers,
                         //"creator" => $creatorid,
                         //"creator" => $group['creator'],
                     ));
