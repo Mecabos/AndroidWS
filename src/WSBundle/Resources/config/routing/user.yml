@@ -28,3 +28,8 @@ user_udateToken:
     defaults: { _controller: "WSBundle:User:updateToken" }
     methods:  [GET, POST]
 
+user_login:
+    path:     /login
+    defaults: { _controller: "WSBundle:User:login" }
+    methods:  [GET, POST]
+

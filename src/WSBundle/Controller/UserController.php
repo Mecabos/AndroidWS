@@ -122,6 +122,40 @@ class UserController extends Controller
         return new JsonResponse(array("type" => "failed"));
     }
 
+    public function loginAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+
+            $email = $data['email'];
+            $pwd = $data['password'];
+
+            $user = $em->getRepository('WSBundle:User')->findOneBy(array('email' => $email));
+            if ($user != null){
+                if ($user->getPassword()==$pwd){
+                    return new JsonResponse(array("loggedIn" => "true"));
+                } else
+                    return new JsonResponse(array("loggedIn" => "false"));
+
+                /*$userJson = array(
+                    "id" => $user->getId(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                    "birthDate" => $user->getBirthDate()->format("Y/m/d H:m:s"),
+                    "bio" => $user->getBio(),
+                );
+                return new JsonResponse($userJson);*/
+            }else {
+                return new JsonResponse(array("type" => "User not found"));
+            }
+
+        }
+        return new JsonResponse(array("type" => "failed"));
+    }
+
     public function newAction(Request $request) //tested
     {
         // Json test

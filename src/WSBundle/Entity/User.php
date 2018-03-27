@@ -27,6 +27,10 @@ class User
      */
     private $lastName;
     /**
+     * @ORM\Column(type="string",length=255,nullable=true)
+     */
+    private $password;
+    /**
      * @ORM\Column(type="string",length=255,unique=true)
      */
     private $email;
@@ -163,6 +167,24 @@ class User
     {
         $this->token = $token;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+
 
 
 
