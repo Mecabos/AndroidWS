@@ -33,3 +33,8 @@ user_login:
     defaults: { _controller: "WSBundle:User:login" }
     methods:  [GET, POST]
 
+user_create:
+    path:     /create
+    defaults: { _controller: "WSBundle:User:create" }
+    methods:  [GET, POST]
+

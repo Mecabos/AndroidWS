@@ -203,6 +203,35 @@ class UserController extends Controller
 
     }
 
+    public function createAction(Request $request) // create an empty User
+    {
+        $data=json_decode($request->getContent(),true);
+        $errors = array();
+
+        $em=$this->getDoctrine()->getManager();
+
+        $user = new User();
+
+        if ($request->isMethod('POST')) {
+            $email = $data['email'];
+            $pwd = $data['password'];
+
+            $user->setEmail($email);
+            $user->setPassword($pwd);
+
+            if (count($errors) == 0) {
+
+                $em->persist($user);
+                $em->flush();
+            }
+            return new JsonResponse(array("type"=>"success",'errors' => $errors));
+
+
+        }
+        return new JsonResponse(array("type"=>"failed"));
+
+    }
+
     public function updateAction(Request $request) //test
     {
 
